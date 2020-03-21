@@ -10,7 +10,7 @@ module Kaya
     def get(location, monday_date)
       query_params = GET_PARAM_DEFAULTS + [
         "location=#{location}",
-        "start_date=#{monday_date}"
+        "start_date=#{monday_date.strftime('%d-%m-%Y')}"
       ]
 
       url = URI::HTTPS.build(

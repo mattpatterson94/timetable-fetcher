@@ -17,6 +17,10 @@ class TimetableOptions
         options[:place] = place
       end
 
+      opts.on('-fFORMAT', '--format=FORMAT', 'The format of the output eg. json | stdin') do |format|
+        options[:format] = format || 'stdin'
+      end
+
       timetable_factory.build_options(opts, options)
 
       opts.on('-h', '--help', 'Prints this help') do

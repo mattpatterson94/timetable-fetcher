@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'class'
+require_relative 'item'
 require_relative 'fetcher'
 require_relative 'parser'
+require_relative 'collection'
 
 module Kaya
   module Factory
@@ -17,7 +18,7 @@ module Kaya
     end
 
     def build_kaya_fetcher
-      Kaya::Fetcher.new(kaya_options, collection, Kaya::Class)
+      Kaya::Fetcher.new(kaya_options, Kaya::Collection, Kaya::Item)
     end
 
     private

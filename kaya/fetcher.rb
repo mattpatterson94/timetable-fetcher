@@ -1,27 +1,28 @@
+require 'date'
 require_relative 'config'
 require_relative 'api'
 
 module Kaya
   class Fetcher
-    def initialize(options, collection, class_klass)
+    def initialize(options, collection_class, item_class)
       @options = options
-      @collection = collection
-      @class_klass = class_klass
+      @collection_class = collection_class
+      @item_class = item_class
     end
 
     def fetch
-      monday = monday_in_week(date).strftime('%d-%m-%Y')
+      monday = monday_in_week(date)
 
       html = api.get(location, monday)
 
-      parser.new(html, monday, collection, class_klass).parse!
+      parser.new(html, monday, collection, item_class).parse!
 
       collection
     end
 
     private
 
-    attr_reader :options, :collection, :class_klass
+    attr_reader :options, :collection_class, :item_class
 
     def monday_in_week(date)
       return date if date.monday?
@@ -43,6 +44,10 @@ module Kaya
 
     def parser
       @parser ||= options[:parser]
+    end
+
+    def collection
+      @collection ||= collection_class.new
     end
 
     def config

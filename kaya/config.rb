@@ -8,13 +8,13 @@ module Kaya
       emporium: '2'
     }.freeze
 
-    KAYA_STUDIOS = %w[
-      yoga_studio
-      group_x_studio
-      grc_1_studio
-      grc_2_studio
-      mind_body
-    ].freeze
+    KAYA_STUDIOS = {
+      yoga_studio: 'Yoga',
+      group_x_studio: 'Group X',
+      grc_1_studio: 'Pilates (GCR 1)',
+      grc_2_studio: 'Pilates (GCR 2)',
+      mind_body: 'Pilates (GCR 3)'
+    }.freeze
 
     class << self
       def studios

@@ -1,15 +1,13 @@
+# frozen_string_literal: true
+
 class TimetableCollection
-  def add_to_collection(timetable_class)
-    classes << timetable_class
+  def add_to_collection(timetable_item)
+    items << timetable_item
   end
 
-  def all
-    classes
-  end
+  protected
 
-  private
-
-  def classes
-    @classes ||= []
+  def items
+    @items ||= []
   end
 end

@@ -3,12 +3,20 @@
 
 require_relative 'timetable_options'
 require_relative 'timetable_fetcher'
-require_relative 'timetable_printer'
+require_relative 'logger'
 
 begin
   options = TimetableOptions.new.build_options
   timetable = TimetableFetcher.new(options).fetch
-  TimetablePrinter.new(timetable).print
+
+  case options[:format]
+  when 'stdin'
+    Logger.print(timetable.to_s)
+  when 'json'
+    Logger.print(timetable.to_json)
+  else
+    Logger.print(timetable.to_s)
+  end
 rescue UnsupportedPlaceError => e
   puts "#{e.message}: #{options[:place]}"
   exit
