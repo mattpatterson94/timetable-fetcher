@@ -8,7 +8,7 @@ require_relative 'timetable_printer'
 begin
   options = TimetableOptions.new.build_options
   timetable = TimetableFetcher.new(options).fetch
-  # TimetablePrinter.new(timetable.print)
+  TimetablePrinter.new(timetable).print
 rescue UnsupportedPlaceError => e
   puts "#{e.message}: #{options[:place]}"
   exit

@@ -2,10 +2,12 @@
 
 require_relative 'timetable_place'
 require_relative 'timetable_factory'
+require_relative 'timetable_collection'
 
 class TimetableFetcher
-  def initialize(options)
+  def initialize(options, collection_klass = TimetableCollection)
     @options = options
+    @collection_klass = collection_klass
   end
 
   def fetch
@@ -14,7 +16,7 @@ class TimetableFetcher
 
   private
 
-  attr_reader :options
+  attr_reader :options, :collection_klass
 
   def fetcher
     @fetcher ||= begin
@@ -25,7 +27,11 @@ class TimetableFetcher
   end
 
   def factory
-    @factory ||= TimetableFactory.new(options)
+    @factory ||= TimetableFactory.new(options, collection)
+  end
+
+  def collection
+    @collection ||= collection_klass.new
   end
 
   def timetable_place

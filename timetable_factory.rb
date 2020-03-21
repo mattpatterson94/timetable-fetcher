@@ -11,11 +11,12 @@ class TimetableFactory
 
   include Kaya::Factory
 
-  def initialize(options)
+  def initialize(options, collection)
     @options = options
+    @collection = collection
   end
 
   private
 
-  attr_reader :options
+  attr_reader :options, :collection
 end

@@ -25,7 +25,7 @@ module Kaya
     private
 
     def config
-      @config ||= ::Kaya::Config
+      @config ||= Kaya::Config
     end
 
     def host
