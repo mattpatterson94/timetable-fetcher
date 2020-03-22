@@ -19,7 +19,7 @@ module Kaya
           classes.each do |timetable_class|
             kaya_class = item_class.new(
               datetime: parse_datetime(timetable_class),
-              type: type_without_time_override(timetable_class[:type]),
+              type: type_without_time_override(timetable_class[:type].strip),
               instructor: timetable_class[:instructor],
               studio: studio
             )
