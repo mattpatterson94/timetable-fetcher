@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative 'timetable_options'
-require_relative 'timetable_fetcher'
-require_relative 'logger'
+require_relative 'src/timetable_options'
+require_relative 'src/timetable_fetcher'
+require_relative 'src/logger'
 
 begin
   options = TimetableOptions.new.build_options
