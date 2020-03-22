@@ -33,8 +33,9 @@ class TimetableFetcher
   end
 end
 
+class FetcherError < StandardError; end
 class UnsupportedPlaceError < StandardError
   def message
-    'The place you provided is unsupported'
+    'The place you provided is unsupported.'
   end
 end

@@ -27,6 +27,9 @@ module Kaya
     def times_table_from_studio(studio)
       studio_block = parsed_html.css("div[data-studio=\"#{studio}\"]")
       times_table = studio_block.css('> table')[1]
+
+      raise TimetableNotFound if times_table.nil?
+
       times_table_rows = times_table.css('> tr')
 
       {
@@ -82,4 +85,6 @@ module Kaya
       @parsed_html ||= Nokogiri::HTML(html)
     end
   end
+
+  class TimetableNotFound < StandardError; end
 end

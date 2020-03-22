@@ -17,7 +17,10 @@ begin
   else
     Logger.print(timetable.to_s)
   end
+rescue FetcherError => e
+  puts "There was an error fetching the Timetable: #{e.message}"
+  exit
 rescue UnsupportedPlaceError => e
-  puts "#{e.message}: #{options[:place]}"
+  puts "#{e.message}:\n#{options[:place]}"
   exit
 end

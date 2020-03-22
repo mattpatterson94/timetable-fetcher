@@ -1,6 +1,7 @@
 require 'date'
 require_relative 'config'
 require_relative 'api'
+require_relative '../timetable_fetcher'
 
 module Kaya
   class Fetcher
@@ -18,6 +19,10 @@ module Kaya
       parser.new(html, monday, collection, item_class).parse!
 
       collection
+    rescue TimetableNotFound
+      raise FetcherError.new(
+        "Timetable could not be fetched with the parameters provided:\n#{options.to_h.slice(:location, :date)}"
+      )
     end
 
     private
