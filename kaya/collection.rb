@@ -5,19 +5,19 @@ require_relative '../timetable_collection'
 module Kaya
   class Collection < TimetableCollection
     def all
-      items.sort_by(&:datetime)
+      items.sort_by { |item| [item.datetime, item.formatted_date] }
     end
 
     def to_s
       print = []
 
-      per_studio(all) do |studio, studio_classes|
-        print << "\n#{studio}"
+      per_date(all) do |date, date_classes|
+        print << "\n#{date}"
 
-        per_date(studio_classes) do |date, date_classes|
-          print << "|-- #{date}"
+        per_studio(date_classes) do |studio, studio_classes|
+          print << "|-- #{studio}"
 
-          date_classes.each do |kaya_class|
+          studio_classes.each do |kaya_class|
             print << "|-- |-- #{kaya_class}"
           end
         end
