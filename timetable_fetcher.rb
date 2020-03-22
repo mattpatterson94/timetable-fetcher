@@ -38,14 +38,3 @@ class UnsupportedPlaceError < StandardError
     'The place you provided is unsupported'
   end
 end
-
-# ci step to build kaya timetable json and store in s3 | dropbox
-# build proxy to pull from DB if no domain whitelisting
-# heroku hobby with nginx | docker. nginx proxies to docker
-# heroku hosts both proxy and site
-
-# check s3 website costs
-# check s3 data transfer costs for storing timetable
-# maybe we can build the chrome into a service worker
-# maybe we can use lambda for proxy
-# md5 class id (timestamp + class + instructor?)
