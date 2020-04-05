@@ -3,24 +3,25 @@
 
 require_relative 'src/timetable_options'
 require_relative 'src/timetable_fetcher'
-require_relative 'src/logger'
+require_relative 'src/timetable_logger'
 
 begin
+  logger = TimetableLogger
   options = TimetableOptions.new.build_options
   timetable = TimetableFetcher.new(options).fetch
 
   case options[:format]
   when 'stdin'
-    Logger.print(timetable.to_s)
+    logger.print(timetable.to_s)
   when 'json'
-    Logger.print(timetable.to_json)
+    logger.print(timetable.to_json)
   else
-    Logger.print(timetable.to_s)
+    logger.print(timetable.to_s)
   end
 rescue FetcherError => e
-  puts "There was an error fetching the Timetable: #{e.message}"
+  logger.print("There was an error fetching the Timetable: #{e.message}")
   exit
 rescue UnsupportedPlaceError => e
-  puts "#{e.message}:\n#{options[:place]}"
+  logger.print("#{e.message}:\n#{options[:place]}")
   exit
 end
