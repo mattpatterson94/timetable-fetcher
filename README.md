@@ -23,3 +23,7 @@ To create a new supported place, follow how the Kaya setup is done and implement
 ### Testing
 
 TBA.
+
+### TODO
+
+* [Code comment](https://github.com/dry-rb/dry-cli/blob/master/lib/dry/cli.rb)
