@@ -2,6 +2,7 @@
 module Kaya
   class Config
     KAYA_HOST = 'timetables.kayahealthclubs.com.au'
+    KAYA_TIMEZONE = 'Australia/Melbourne'
 
     KAYA_LOCATIONS = {
       prahran: '1',
@@ -23,6 +24,10 @@ module Kaya
 
       def default_location
         KAYA_LOCATIONS[:emporium]
+      end
+
+      def timezone
+        KAYA_TIMEZONE
       end
 
       def get_location(location)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'tzinfo'
 require_relative 'html'
 require_relative 'config'
 
@@ -44,9 +45,9 @@ module Kaya
 
     def parse_datetime(timetable_class)
       class_time = class_time_override(timetable_class)
-
+      offset = class_timezone_offset(timetable_class[:date]) # eg. +1000
       # We grab the year from the request because it isn't specified in the timetable
-      DateTime.parse("#{timetable_class[:date]} #{monday_date.year} #{class_time}")
+      DateTime.parse("#{timetable_class[:date]} #{monday_date.year} #{class_time} #{offset}")
     end
 
     # Sometimes the class time is in the "type" field.
@@ -63,6 +64,18 @@ module Kaya
     # =>    Reformer with Ali
     def type_without_time_override(type)
       type.gsub(/^(.*[ap][m]\s)/, '')
+    end
+
+    # eg. +1100 for Melbourne
+    def class_timezone_offset(date)
+      offset = timezone.period_for(DateTime.parse(date)).observed_utc_offset / 36
+      offset_indicator = offset.positive? ? '+' : '-'
+
+      "#{offset_indicator}#{offset.abs}"
+    end
+
+    def timezone
+      @timezone ||= TZInfo::Timezone.get(config.timezone)
     end
 
     def config
