@@ -11,6 +11,10 @@ module Kaya
       @type ||= item_details[:type]
     end
 
+    def additional_info
+      @additional_info ||= item_details[:additional_info].to_s
+    end
+
     def formatted_date
       datetime.strftime('%A %d %B')
     end
@@ -34,6 +38,7 @@ module Kaya
 
     def to_h
       {
+        additional_info: additional_info,
         datetime: datetime.to_s,
         instructor: instructor,
         studio: studio,
