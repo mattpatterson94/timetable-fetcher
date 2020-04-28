@@ -20,7 +20,8 @@ module Kaya
           classes.each do |timetable_class|
             kaya_class = item_class.new(
               datetime: parse_datetime(timetable_class),
-              type: type_without_time_override(timetable_class[:type].strip),
+              type: type_without_time_override_and_additional_info(timetable_class[:type].strip),
+              additional_info: additional_info(timetable_class),
               instructor: timetable_class[:instructor],
               studio: studio
             )
@@ -60,10 +61,17 @@ module Kaya
       override
     end
 
-    # eg.   9:15am Reformer with Ali
+    # Sometimes the class is shorter, which is presented in the  "type" field.
+    # eg. Reformer with Ali (45 mins)
+    def additional_info(timetable_class)
+      timetable_class[:type].match(/\((.*)\)$/).to_a[1]
+    end
+
+    # eg.   9:15am Reformer with Ali (45 mins)
     # =>    Reformer with Ali
-    def type_without_time_override(type)
+    def type_without_time_override_and_additional_info(type)
       type.gsub(/^(.*[ap][m]\s)/, '')
+          .gsub(/ \(.*\)$/, '')
     end
 
     # eg. +1100 for Melbourne
